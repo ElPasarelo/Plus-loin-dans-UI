@@ -13,6 +13,7 @@ class ProgrammatiqueController: UIViewController {
     var monPremierUIView: UIView?
     var monPremierLabel: UILabel?
     var monPremierBouton: UIButton?
+    var maPremiereIV: UIImageView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class ProgrammatiqueController: UIViewController {
         view.addSubview(monPremierLabel!)
         
         
-        let rectDeMonBouton = CGRect(x: view.frame.width / 2 - 75, y: monPremierLabel!.frame.maxY + 20, width: 150, height: 40)
+        let rectDeMonBouton = CGRect(x: view.frame.width / 2 - 75, y: monPremierLabel!.frame.maxY + 220, width: 150, height: 40)
         monPremierBouton = UIButton(frame: rectDeMonBouton)
         monPremierBouton?.setTitle("Appuyez", for: UIControlState.normal)
         monPremierBouton?.tintColor = UIColor.white
@@ -42,10 +43,38 @@ class ProgrammatiqueController: UIViewController {
         view.addSubview(monPremierBouton!)
         
         monPremierBouton?.addTarget(self, action: #selector(boutonAppuye), for: .touchUpInside)
+        
+        let largeur = view.frame.width - 60
+        let rectIV = CGRect(x: 30, y: (view.frame.height / 2) - (largeur / 2), width: largeur, height: largeur)
+        maPremiereIV = UIImageView(frame: rectIV)
+        maPremiereIV?.image = UIImage(named: "codabee")
+        maPremiereIV?.contentMode = .scaleAspectFill
+        maPremiereIV?.clipsToBounds = true
+        maPremiereIV?.layer.cornerRadius = maPremiereIV!.frame.width / 2
+        view.addSubview(maPremiereIV!)
+        //view.sendSubview(toBack: maPremiereIV!)
+        
+        view.bringSubview(toFront: monPremierBouton!)
+        
+        maPremiereIV?.isUserInteractionEnabled = true
+        maPremiereIV?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageAppuye)))
     }
     
+    @objc func imageAppuye() {
+        print("Image touchée")
+    }
     
     @objc func boutonAppuye() {
         print("Tu as bien appuyé")
     }
 }
+
+
+
+
+
+
+
+
+
+
